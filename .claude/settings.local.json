@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(winget install *)",
+      "Bash(git *)",
+      "Bash(gh auth *)",
+      "Bash(bash -c 'git add -A && git diff --cached --quiet || git commit -m \"Auto-commit: Claude Code changes\"')"
+    ]
+  }
+}
