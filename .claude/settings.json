@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git -C /c/Users/weree/claude/test add -A && git -C /c/Users/weree/claude/test diff --cached --quiet || git -C /c/Users/weree/claude/test commit -m \"Auto-commit: Claude Code changes\"",
+            "statusMessage": "Committing changes to git..."
+          }
+        ]
+      }
+    ]
+  }
+}
