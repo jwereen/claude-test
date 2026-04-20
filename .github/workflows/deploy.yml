@@ -13,7 +13,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy via SSH
+      - name: Setup server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            if ! command -v nginx &> /dev/null; then
+              sudo apt update && sudo apt install -y nginx
+              sudo systemctl enable nginx
+            fi
+            sudo systemctl start nginx
+            sudo mkdir -p /var/www/html
+            sudo chown -R $USER:$USER /var/www/html
+
+      - name: Copy files
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
