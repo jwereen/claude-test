@@ -27,3 +27,18 @@ All file changes are auto-committed via a PostToolUse hook (`Write|Edit` → `gi
 ```
 git push
 ```
+
+## Deployment
+
+`.github/workflows/deploy.yml` deploys `pacman.html` to an nginx server via SSH using `appleboy/scp-action`. Trigger it manually from **GitHub → Actions → Deploy to Server → Run workflow**.
+
+**Required GitHub Secrets** (set in repo Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+|---|---|
+| `SSH_HOST` | Server IP or hostname |
+| `SSH_USER` | SSH username |
+| `SSH_PRIVATE_KEY` | Private key contents (e.g. `~/.ssh/id_rsa`) |
+| `SSH_PORT` | SSH port (usually `22`) |
+
+The server's `~/.ssh/authorized_keys` must contain the matching public key. The file is copied to `/var/www/html/pacman.html`.
